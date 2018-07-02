@@ -1,4 +1,4 @@
-# Running Monoprice Mini Delta with [Ramps 1.4](https://reprap.org/wiki/RAMPS_1.4) and klipper.
+# Running Monoprice Mini Delta with [Ramps 1.4](https://reprap.org/wiki/RAMPS_1.4) and [klipper](https://github.com/KevinOConnor/klipper).
 
 Setup I have:
 - AtMega2560
