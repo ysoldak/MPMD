@@ -1,9 +1,16 @@
-# Running Monoprice Mini Delta with [Ramps 1.4](https://reprap.org/wiki/RAMPS_1.4) and [klipper](https://github.com/KevinOConnor/klipper).
+# [Monoprice](https://mpminidelta.monoprice.com) [Mini Delta](https://www.mpminidelta.com) with RAMPS 1.4 and [klipper](https://github.com/KevinOConnor/klipper).
 
-Setup I have:
-- AtMega2560
-- RAMPS 1.4
+Hardware
+- [Arduino Mega 2560 Rev3](https://store.arduino.cc/usa/arduino-mega-2560-rev3)
+- [RAMPS 1.4](https://reprap.org/wiki/RAMPS_1.4)
 - [DRV8825](https://www.pololu.com/product/2133) stepper drivers
+- Power supply from an old router providing 12V/10A and 160W max
+- Stock stepper motors, extruder and frame.
+
+Software
+- [OctoPrint](https://octoprint.org) running on Raspberry Pi v3 B+
+- Klipper host installed on the same RPi
+- Klipper client/firmware installed on Arduino
 
 ### Setting up drivers
 #### Adjusting Current
