@@ -21,6 +21,8 @@ Klipper project, on the other hand has nice idea of using general purpose hardwa
 The problem is Klipper has not port for STM32F0 chip MPMD has on its stock board. In turn it supports Arduino/RAMPS and I was lucky to find RAMPS 1.4 package with Arduino 2560 and drivers for just $30. DRV8825 drivers are capable of 1/32 microstepping, compared with stock 1/8.
 All this combined, I've decided to give RAMPS a try first, planning to return to the stock board in the future and make a port of klipper fw to MPMD board. 
 
+Big thanks and kudos go to Mickey Rozay who helps me a whole lot along the way.
+
 ### Setting up drivers
 #### Adjusting Current
 Amperage on drivers MUST be adjusted, stock 3A is too high for MPMD motors that can consume 0.5A max.  
