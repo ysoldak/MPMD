@@ -13,8 +13,7 @@ Software
 - Klipper client/firmware installed on Arduino
 
 ### Targets for the project
-The main driver for this project is to run some other firmware that stock, which is very limited in settings and buggy.
-The stock firmware does not allow confguration for individual diagonal rod lengths and tower angles. And this is pretty upsetting since the build can not be 100% flawless and all small deviations add up to weird shapes (squares printed are not exactly squares basically) and bed warping making a nice first layer all but impossible.
+The main driver for this project is to run some other firmware that stock on MPMD printer. The stock firmware is very limited in configuration and buggy. For example, the stock firmware does not allow confguration for individual diagonal rod lengths and tower angles. And this is pretty upsetting since the build can not be 100% flawless and all small deviations do add up to weird moves of the effector, resulting in squares printed are not exactly square and making a nice first layer an unreachable dream.
 
 I've started with a port of [Marlin for MPMD](https://github.com/mcheah/Marlin4MPMD), made by Mickey Rozay. It does work, but based on some old Marlin version, pre 1.1.0 and lacked at the moment some nice features like delta calibration.
 
