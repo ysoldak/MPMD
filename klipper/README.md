@@ -1,4 +1,4 @@
-# [Monoprice](https://mpminidelta.monoprice.com) [Mini Delta](https://www.mpminidelta.com) with RAMPS 1.4 and [klipper](https://github.com/KevinOConnor/klipper).
+# [Monoprice](https://mpminidelta.monoprice.com) [Mini Delta](https://www.mpminidelta.com) with RAMPS 1.4 and klipper.
 
 Hardware
 - [Arduino Mega 2560 Rev3](https://store.arduino.cc/usa/arduino-mega-2560-rev3)
@@ -9,8 +9,18 @@ Hardware
 
 Software
 - [OctoPrint](https://octoprint.org) running on Raspberry Pi v3 B+
-- Klipper host installed on the same RPi
+- [Klipper](https://github.com/KevinOConnor/klipper) host installed on the same RPi
 - Klipper client/firmware installed on Arduino
+
+### Targets for the project
+The main driver for this project is to run some other firmware that stock, which is very limited in settings and buggy.
+The stock firmware does not allow confguration for individual diagonal rod lengths and tower angles. And this is pretty upsetting since the build can not be 100% flawless and all small deviations add up to weird shapes (squares printed are not exactly squares basically) and bed warping making a nice first layer all but impossible.
+
+I've started with a port of [Marlin for MPMD](https://github.com/mcheah/Marlin4MPMD), made by Mickey Rozay. It does work, but based on some old Marlin version, pre 1.1.0 and lacked at the moment some nice features like delta calibration.
+
+Klipper project, on the other hand has nice idea of using general purpose hardware (like RPi) for GCODE parser and planner and having just tiny client on printer controller that calculates nothing, just moves motors as requested from the host.
+The problem is Klipper has not port for STM32F0 chip MPMD has on its stock board. In turn it supports Arduino/RAMPS and I was lucky to find RAMPS 1.4 package with Arduino 2560 and drivers for just $30. DRV8825 drivers are capable of 1/32 microstepping, compared with stock 1/8.
+All this combined, I've decided to give RAMPS a try first, planning to return to the stock board in the future and make a port of klipper fw to MPMD board. 
 
 ### Setting up drivers
 #### Adjusting Current
