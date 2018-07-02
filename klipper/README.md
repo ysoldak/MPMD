@@ -41,8 +41,8 @@ There are 3 jumpers under each motor driver on RAMPS board, install them accordi
 jumper   Yes/No  step size
  1     2    3
 yes  yes   no    1/8 step
- no   no    yes   1/16 step
- yes  no    yes   1/32 step
+no   no    yes   1/16 step
+yes  no    yes   1/32 step
 ```
 Formula to calculate **step_distance** for klipper config and MPMD:  
 `step_distance: 1/((200*M)/T/2)`, here M is microsteps (8, 16 or 32) and T is number of teeth on motor pulley, stock is 14, I use 16T.
