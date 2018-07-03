@@ -54,5 +54,13 @@ TODO
 
 ### Calibration
 TODO
-- https://www.thingiverse.com/thing:1274733
+#### End stops and tower angles
+ - `DELTA_CALIBRATE`
+ - *edit printer.cfg*
+ - `RESTART`
+#### Individual diagonal rod lengths
+- Print scaled down to 50mm on Y dimention: https://www.thingiverse.com/thing:1274733
+- Put numbers into spread sheet
+- Set new **arm_length** for all 3 steppers in *printer.cfg*
+- `RESTART`
 
