@@ -10,7 +10,7 @@ Hardware
 Software
 - [OctoPrint](https://octoprint.org) running on Raspberry Pi v3 B+
 - [Klipper](https://github.com/KevinOConnor/klipper) host installed on the same RPi
-- Klipper client/firmware installed on Arduino
+- [Klipper](https://www.patreon.com/koconnor/overview) client/firmware installed on Arduino
 
 ### Project
 The main driver for this project is to run some other firmware that stock on MPMD printer. The stock firmware is very limited in configuration and buggy. For example, the stock firmware does not allow confguration for individual diagonal rod lengths and tower angles. And this is pretty upsetting since the build can not be 100% flawless and all small deviations do add up to weird moves of the effector, resulting in squares printed are not exactly square and making a nice first layer an unreachable dream.
