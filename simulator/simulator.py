@@ -87,14 +87,14 @@ def main():
 
     good_l = args.l_value
     good_r = args.r_value
+    good_t = args.t_value
     bad_l = good_l + float(args.dl_value) if args.wl_value is None else args.wl_value
     bad_r = good_r + float(args.dr_value) if args.wr_value is None else args.wr_value
-    bad_t = args.t_value
 
-    good = DeltaPrinter(good_l, good_r)
-    bad  = DeltaPrinter(bad_l, bad_r, bad_t)
+    good = DeltaPrinter(good_l, good_r, good_t)
+    bad  = DeltaPrinter(bad_l, bad_r, 90.0)
 
-    center_error = error(good, bad, 0, 0)[2] # glue good and bad centers together
+    center_error = 0 #error(good, bad, 0, 0)[2] # glue good and bad centers together
 
     print("Warping at 0:")
     for row in points:
