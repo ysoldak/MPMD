@@ -38,8 +38,8 @@ points = [
 # ]
 
 # Examples:
-# ./simulator.py -l 120.2 -r 61.7 -wl 120.2 -wr 61.7 -t 89.4
-# ./simulator.py -l 120.2 -r 61.7 -wl 122 -wr 62
+# ./sim_warp.py -l 120.2 -r 61.7 -wl 120.2 -wr 61.7 -t 89.4
+# ./sim_warp.py -l 120.2 -r 61.7 -wl 122 -wr 62
 
 def main():
 
@@ -92,14 +92,14 @@ def main():
 
     print("")
 
-#    max_y = error(good, bad, 0, 42.2)[1]
-#    min_y = error(good, bad, 0, -42.2)[1]
+    # max_y = error(good, bad, 0, 42.2)[1]
+    # min_y = error(good, bad, 0, -42.2)[1]
     max_y = error(correct, wrong, 0, 50)[1]
     min_y = error(correct, wrong, 0, -50)[1]
     xy_error = (max_y - min_y)
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
-    print("{0:.3f},{0:.3f}".format(max_y, min_y))
+    # print("{0:.3f},{0:.3f}".format(max_y, min_y))
 
     #(122.49-121.36)/3*2+62.7=63.45
 
