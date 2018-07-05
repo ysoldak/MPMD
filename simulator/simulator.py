@@ -5,8 +5,8 @@ import argparse
 
 from delta_printer import DeltaPrinter
 
-def error(good, bad, x, y):
-    bad.move(x, y, 0)
+def error(good, bad, x, y, z = 0):
+    bad.move(x, y, z)
     good.tower_positions = bad.tower_positions
     return good.position()
 
@@ -92,7 +92,7 @@ def main():
 
     center_error = error(good, bad, 0, 0)[2] # glue good and bad centers together
 
-    print("Warping:")
+    print("Warping at 0:")
     for row in points:
         for point in row:
             v = "{0:.3f}".format(error(good, bad, point[0], point[1])[2] - center_error) if point is not None else " -/- "
@@ -101,6 +101,17 @@ def main():
         print("")
 
     print("")
+
+    print("Warping at 50:")
+    for row in points:
+        for point in row:
+            v = "{0:.3f}".format(error(good, bad, point[0], point[1], 50)[2] - center_error) if point is not None else " -/- "
+            sys.stdout.write(v + "  ")
+            sys.stdout.flush()
+        print("")
+
+    print("")
+
 #    max_y = error(good, bad, 0, 42.2)[1]
 #    min_y = error(good, bad, 0, -42.2)[1]
     max_y = error(good, bad, 0, 50)[1]
