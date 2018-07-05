@@ -51,6 +51,10 @@ points = [
     [None,         [-25, -43.3], [0, -50], [25, -43.3], None],
 ]
 
+# points = [
+#     [[0, 0]],
+# ]
+
 def main():
 
     l_value = 120.8
@@ -119,6 +123,7 @@ def main():
     xy_error = (max_y - min_y)
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
+    print("{0:.3f},{0:.3f}".format(max_y, min_y))
 
     #(122.49-121.36)/3*2+62.7=63.45
 
