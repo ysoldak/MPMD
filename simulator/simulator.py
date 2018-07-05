@@ -3,65 +3,49 @@
 import sys
 import argparse
 
-from delta_printer import DeltaPrinter
+from delta_printer import DeltaPrinter, error
 
-def error(correct, wrong, x, y, z = 0):
-    # we move wrongly configured printer and copy carriage positions to correct model and see where the nozzle ends up
-    wrong.move(x, y, z)
-    correct.tower_positions = wrong.tower_positions
-    return correct.position()
-
-def solve_for(l, r, observations, error_treshold = 0.5):
-    # finds all L/R pairs that give correct dimensions, consumes observations
-    max_error = 0
-    for o in observations:
-        good_l = l
-        good_r = r
-        bad_l = float(o[0])
-        bad_r = float(o[1])
-        good = DeltaPrinter(good_l, good_r)
-        bad  = DeltaPrinter(bad_l, bad_r)
-
-        center_error = error(good, bad, 0, 0)[2]
-        
-        max_y = error(good, bad, 0, 50)[1]
-        min_y = error(good, bad, 0, -50)[1]
-        xy_error = (max_y - min_y) - float(o[2])
-        if abs(xy_error) > error_treshold:
-            return 100
-        if abs(xy_error) > abs(max_error):
-            max_error = xy_error
-        
-        for row in points:
-            for point in row:
-                if point is not None:
-                    ep = error(good, bad, point[0], point[1])[2] - center_error
-                    if abs(ep) > error_treshold:
-                        return 100
-    return max_error
-
-def frange(start, end, step):
-    while start <= end:
-        yield start
-        start += step
-
-points = [
-    [None,         [-25, 43.3],  [0, 50],  [25, 43.3],  None],
-    [[-43.3, 25],  [-25, 25],    [0, 25],  [25, 25],    [43.3, 25]],
-    [[-50, 0],     [-25, 0],     [0, 0],   [25, 0],     [50, 0]],
-    [[-43.3, -25], [-25, -25],   [0, -25], [25, -25],   [43.3, -25]],
-    [None,         [-25, -43.3], [0, -50], [25, -43.3], None],
-]
 
 # points = [
 #     [[0, 0]],
 # ]
 
+# center, radius 50
+points = [
+    [None,          [0, 50],   None],
+    [[-43.3, 25],   None,      [43.3, 25]],
+    [None,          [0, 0],    None],
+    [[-43.3, -25],  None,      [43.3, -25]],
+    [None,          [0, -50],  None]
+]
+
+# center, radius 30, radius 50
+# points = [
+#     [[-43.3, 25],   [0, 50],   [43.3, 25]],
+#     [[-26, 15],     [0, 30],   [26, 15]],
+#     [[-30, 0],      [0, 0],    [30, 0]],
+#     [[-26, -15],    [0, -30],  [26, -15]],
+#     [[-43.3, -25],  [0, -50],  [43.3, -25]],
+# ]
+
+# center, square 25, radius 50
+# points = [
+#     [None,         [-25, 43.3],  [0, 50],  [25, 43.3],  None],
+#     [[-43.3, 25],  [-25, 25],    [0, 25],  [25, 25],    [43.3, 25]],
+#     [[-50, 0],     [-25, 0],     [0, 0],   [25, 0],     [50, 0]],
+#     [[-43.3, -25], [-25, -25],   [0, -25], [25, -25],   [43.3, -25]],
+#     [None,         [-25, -43.3], [0, -50], [25, -43.3], None],
+# ]
+
+# Examples:
+# ./simulator.py -l 120.2 -r 61.7 -wl 120.2 -wr 61.7 -t 89.4
+# ./simulator.py -l 120.2 -r 61.7 -wl 122 -wr 62
+
 def main():
 
     l_value = 120.8
     r_value = 61.7
-    t_value = 1.0
+    t_value = 90.0
     dl_value = 0.0
     dr_value = 0.0
     wl_value = l_value + dl_value
@@ -74,18 +58,8 @@ def main():
     parser.add_argument('-dr','--dr-value',type=float,default=dr_value,help='Deviation from correct r-value')
     parser.add_argument('-wl','--wl-value',type=float,default=None,help='Wrong l-value')
     parser.add_argument('-wr','--wr-value',type=float,default=None,help='Wrong r-value')
-    parser.add_argument('-t','--t-value',type=float,default=t_value,help='Tower tilt, t<1 means towers tilt outwards')
-    parser.add_argument('-s','--solve',type=str,dest='solve',default=None,help='')
+    parser.add_argument('-t','--t-value',type=float,default=t_value,help='Tower tilt, t<90 means towers tilt outwards')
     args = parser.parse_args()
-
-    if args.solve:
-        conditions = [x.split(",") for x in args.solve.split(";")]
-        for l in frange(118.0, 124.0, 0.05):
-            for r in frange(61.0, 65.0, 0.05):
-                e = solve_for(l, r, conditions, 0.1)
-                if abs(e) < 0.2:
-                    print("L{0}, R{1} - {2:.2f}".format(l, r, e))
-        exit(0)
 
     correct_l = args.l_value
     correct_r = args.r_value

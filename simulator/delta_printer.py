@@ -94,6 +94,12 @@ class DeltaPrinter:
     def tower_deltas(self):
         return [p-h for h, p in zip(self.tower_home_positions, self.tower_positions)]
 
+def error(correct, wrong, x, y, z = 0):
+    # we move wrongly configured printer and copy carriage positions to correct model and see where the nozzle ends up
+    wrong.move(x, y, z)
+    correct.tower_positions = wrong.tower_positions
+    return correct.position()
+
 # args
 # 1 : L (diagonal rod length)
 # 2 : R (delta radius)
