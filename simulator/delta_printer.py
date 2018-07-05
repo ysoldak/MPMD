@@ -18,8 +18,8 @@ class DeltaPrinter:
         self.tower_coords = [(
             math.cos(math.radians(angle)) * self.r,
             math.sin(math.radians(angle)) * self.r) for angle in self.tower_angles]
-        self.tower_positions = [0,0,0] # these positions are wrong, move() initialises them
-        self.move(0,0,0)
+        self.tower_positions = [0,0,0] # these positions are wrong, home() initialises them
+        self.home()
         self.tower_home_positions = [p for p in self.tower_positions]
 
     def home(self):
