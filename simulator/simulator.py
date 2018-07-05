@@ -5,18 +5,20 @@ import argparse
 
 from delta_printer import DeltaPrinter
 
-def error(good, bad, x, y, z = 0):
-    bad.move(x, y, z)
-    good.tower_positions = bad.tower_positions
-    return good.position()
+def error(correct, wrong, x, y, z = 0):
+    # we move wrongly configured printer and copy carriage positions to correct model and see where the nozzle ends up
+    wrong.move(x, y, z)
+    correct.tower_positions = wrong.tower_positions
+    return correct.position()
 
-def solve_for(l, r, conditions, error_treshold = 0.5):
+def solve_for(l, r, observations, error_treshold = 0.5):
+    # finds all L/R pairs that give correct dimensions, consumes observations
     max_error = 0
-    for c in conditions:
+    for o in observations:
         good_l = l
         good_r = r
-        bad_l = float(c[0])
-        bad_r = float(c[1])
+        bad_l = float(o[0])
+        bad_r = float(o[1])
         good = DeltaPrinter(good_l, good_r)
         bad  = DeltaPrinter(bad_l, bad_r)
 
@@ -24,7 +26,7 @@ def solve_for(l, r, conditions, error_treshold = 0.5):
         
         max_y = error(good, bad, 0, 50)[1]
         min_y = error(good, bad, 0, -50)[1]
-        xy_error = (max_y - min_y) - float(c[2])
+        xy_error = (max_y - min_y) - float(o[2])
         if abs(xy_error) > error_treshold:
             return 100
         if abs(xy_error) > abs(max_error):
@@ -85,21 +87,21 @@ def main():
                     print("L{0}, R{1} - {2:.2f}".format(l, r, e))
         exit(0)
 
-    good_l = args.l_value
-    good_r = args.r_value
-    good_t = args.t_value
-    bad_l = good_l + float(args.dl_value) if args.wl_value is None else args.wl_value
-    bad_r = good_r + float(args.dr_value) if args.wr_value is None else args.wr_value
+    correct_l = args.l_value
+    correct_r = args.r_value
+    correct_t = args.t_value
+    wrong_l = correct_l + float(args.dl_value) if args.wl_value is None else args.wl_value
+    wrong_r = correct_r + float(args.dr_value) if args.wr_value is None else args.wr_value
 
-    good = DeltaPrinter(good_l, good_r, good_t)
-    bad  = DeltaPrinter(bad_l, bad_r, 90.0)
+    correct = DeltaPrinter(correct_l, correct_r, correct_t)
+    wrong  = DeltaPrinter(wrong_l, wrong_r, 90.0) # tilt on wrong printer is always 90, i.e. it thinks it's correct
 
     center_error = 0 #error(good, bad, 0, 0)[2] # glue good and bad centers together
 
     print("Warping at 0:")
     for row in points:
         for point in row:
-            v = "{0:.3f}".format(error(good, bad, point[0], point[1])[2] - center_error) if point is not None else " -/- "
+            v = "{0:.3f}".format(error(correct, wrong, point[0], point[1])[2] - center_error) if point is not None else " -/- "
             sys.stdout.write(v + "  ")
             sys.stdout.flush()
         print("")
@@ -109,7 +111,7 @@ def main():
     print("Warping at 50:")
     for row in points:
         for point in row:
-            v = "{0:.3f}".format(error(good, bad, point[0], point[1], 50)[2] - center_error) if point is not None else " -/- "
+            v = "{0:.3f}".format(error(correct, wrong, point[0], point[1], 50)[2] - center_error) if point is not None else " -/- "
             sys.stdout.write(v + "  ")
             sys.stdout.flush()
         print("")
@@ -118,8 +120,8 @@ def main():
 
 #    max_y = error(good, bad, 0, 42.2)[1]
 #    min_y = error(good, bad, 0, -42.2)[1]
-    max_y = error(good, bad, 0, 50)[1]
-    min_y = error(good, bad, 0, -50)[1]
+    max_y = error(correct, wrong, 0, 50)[1]
+    min_y = error(correct, wrong, 0, -50)[1]
     xy_error = (max_y - min_y)
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
