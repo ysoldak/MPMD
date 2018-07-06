@@ -44,10 +44,10 @@ yes  yes   no    1/8 step
 no   no    yes   1/16 step
 yes  no    yes   1/32 step
 ```
-Formula to calculate **step_distance** for klipper config and MPMD:  
-`step_distance: 1/((200*M)/T/2)`, here M is microsteps (8, 16 or 32) and T is number of teeth on motor pulley, stock is 14, I use 16T.
-
-Stock pulley + 1/16 microsteps gives us: `step_distance: 0.00875`
+Formula to calculate **step_distance** for klipper config:  
+`1 / ((steps per mm * microsteps) / pulley tooth number / belt pitch)`  
+For MPMD:  
+`step_distance: 0.00875` = `1/((200*8)/14/2)`
 
 ### Wiring
 TODO
