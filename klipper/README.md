@@ -29,8 +29,8 @@ Amperage on drivers MUST be adjusted, stock 3A is too high for MPMD motors that 
 Formula from documentation: `Current Limit = VREF × 2`
 
 - Turn ON the board
-- Measure V between GND pin on the driver and potentiometer (the thing you can adjust with a screwdriver) on the driver
-- Adjust potentiometer until voltage is approx. 0.250V, this gives current limit of 0.5A
+- Measure V between GND pin on the driver and trim pot (the thing you can adjust with a screwdriver) on the driver
+- Adjust trim until voltage is approx. 0.250V, this gives current limit of 0.5A
 
 Motors MUST NOT be hot, just slightly warm.
 
@@ -46,8 +46,8 @@ yes  no    yes   1/32 step
 ```
 Formula to calculate **step_distance** for klipper config:  
 `1 / ((steps per mm * microsteps) / pulley tooth number / belt pitch)`  
-For MPMD:  
-`step_distance: 0.00875` = `1/((200*8)/14/2)`
+For MPMD with DRV8825 configured for 1/16 microstepping:  
+`step_distance: 0.00875` = `1/((200*16)/14/2)`
 
 ### Wiring
 TODO
