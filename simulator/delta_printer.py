@@ -111,6 +111,8 @@ if __name__ == '__main__':
     printer = DeltaPrinter(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]))
     printer.move(float(sys.argv[4]), float(sys.argv[5]))
     pos = printer.position()
-    print("{0:.3f}, {1:.3f}, {2:.3f}".format(pos[0], pos[1], pos[2]))
+    print("Nozzle: {0:.3f}, {1:.3f}, {2:.3f}".format(pos[0], pos[1], pos[2]))
+    towers = printer.tower_positions
+    print("Towers: {0:.3f}, {1:.3f}, {2:.3f}".format(towers[0],towers[1],towers[2]))
     deltas = printer.tower_deltas()
-    print("{0:.3f}, {1:.3f}, {2:.3f}".format(deltas[0],deltas[1],deltas[2]))
+    print("Deltas: {0:.3f}, {1:.3f}, {2:.3f}".format(deltas[0],deltas[1],deltas[2]))
