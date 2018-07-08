@@ -1,32 +1,35 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import argparse
 
+from io import StringIO
+
 from delta_printer import DeltaPrinter, error
 
+from plot import plot
 
 # points = [
 #     [[0, 0]],
 # ]
 
 # center, radius 50
-points = [
-    [None,          [0, 50],   None],
-    [[-43.3, 25],   None,      [43.3, 25]],
-    [None,          [0, 0],    None],
-    [[-43.3, -25],  None,      [43.3, -25]],
-    [None,          [0, -50],  None]
-]
+# points = [
+#     [None,          [0, 50],   None],
+#     [[-43.3, 25],   None,      [43.3, 25]],
+#     [None,          [0, 0],    None],
+#     [[-43.3, -25],  None,      [43.3, -25]],
+#     [None,          [0, -50],  None]
+# ]
 
 # center, radius 30, radius 50
-# points = [
-#     [[-43.3, 25],   [0, 50],   [43.3, 25]],
-#     [[-26, 15],     [0, 30],   [26, 15]],
-#     [[-30, 0],      [0, 0],    [30, 0]],
-#     [[-26, -15],    [0, -30],  [26, -15]],
-#     [[-43.3, -25],  [0, -50],  [43.3, -25]],
-# ]
+points = [
+    [[-43.3, 25],   [0, 50],   [43.3, 25]],
+    [[-26, 15],     [0, 30],   [26, 15]],
+    [[-30, 0],      [0, 0],    [30, 0]],
+    [[-26, -15],    [0, -30],  [26, -15]],
+    [[-43.3, -25],  [0, -50],  [43.3, -25]],
+]
 
 # center, square 25, radius 50
 # points = [
@@ -38,8 +41,7 @@ points = [
 # ]
 
 # Examples:
-# ./sim_warp.py -l 120.2 -r 61.7 -wl 120.2 -wr 61.7 -t 89.4
-# ./sim_warp.py -l 120.2 -r 61.7 -wl 122 -wr 62
+# ./sim_warp.py -l 123.5 -r 63.7 -wl 120 -wr 62.7
 
 def main():
 
@@ -70,38 +72,31 @@ def main():
     correct = DeltaPrinter(correct_l, correct_r, correct_t)
     wrong  = DeltaPrinter(wrong_l, wrong_r, 90.0) # tilt on wrong printer is always 90, i.e. it thinks it's correct
 
-    center_error = 0 #error(good, bad, 0, 0)[2] # glue good and bad centers together
+    center_error = error(correct, wrong, 0, 0)[2] # glue good and bad centers together
 
-    print("Warping at 0:")
+    print("Warping:")
+    warp_csv = ""
     for row in points:
         for point in row:
-            v = "{0:.3f}".format(error(correct, wrong, point[0], point[1])[2] - center_error) if point is not None else " -/- "
+            error_value = error(correct, wrong, point[0], point[1])[2] - center_error if point is not None else -100
+            v = "{0:.3f}".format(error_value) if error_value > -100 else " -/- "
             sys.stdout.write(v + "  ")
             sys.stdout.flush()
+            if point is not None:
+                warp_csv += "{0:.3f},{1:.3f},{2:.3f}\n".format(point[0],point[1],error_value)
         print("")
 
     print("")
 
-    print("Warping at 50:")
-    for row in points:
-        for point in row:
-            v = "{0:.3f}".format(error(correct, wrong, point[0], point[1], 50)[2] - center_error) if point is not None else " -/- "
-            sys.stdout.write(v + "  ")
-            sys.stdout.flush()
-        print("")
-
-    print("")
-
-    # max_y = error(good, bad, 0, 42.2)[1]
-    # min_y = error(good, bad, 0, -42.2)[1]
     max_y = error(correct, wrong, 0, 50)[1]
     min_y = error(correct, wrong, 0, -50)[1]
     xy_error = (max_y - min_y)
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
-    # print("{0:.3f},{0:.3f}".format(max_y, min_y))
 
-    #(122.49-121.36)/3*2+62.7=63.45
+    print(warp_csv)
+    csv = StringIO(warp_csv)
+    plot(csv, "{0}-{1}-with-{2}_{3}.png".format(correct_l, correct_r, wrong_l, wrong_r), True)
 
 if __name__ == '__main__':
     main()
