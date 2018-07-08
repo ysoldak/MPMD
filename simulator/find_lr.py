@@ -51,14 +51,10 @@ points = [
 
 def main():
 
-    l_value = 120.8
-    r_value = 61.7
     s_value = 0.05
     f_value = 1
 
     parser = argparse.ArgumentParser(description='Delta errors simulation')
-    parser.add_argument('-l','--l-value',type=float,default=l_value,help='Correct l-value')
-    parser.add_argument('-r','--r-value',type=float,default=r_value,help='Correct r-value')
     parser.add_argument('-s','--s-value',type=float,default=s_value,help='Step value')
     parser.add_argument('-f','--f-value',type=int,default=f_value,help='Filter for flatness')
     parser.add_argument('-o','--observations',type=str,dest='observations',default=None,help='Semicolon separated observation triplets, each in form or: l,r,dimension observed')
@@ -69,8 +65,8 @@ def main():
         exit(1)
 
     observations = [x.split(",") for x in args.observations.split(";")]
-    for l in f_range(117.0, 124.0, args.s_value):
-        for r in f_range(60.0, 65.0, args.s_value):
+    for l in f_range(117.0, 130.0, args.s_value):
+        for r in f_range(60.0, 70.0, args.s_value):
             e = try_for(l, r, observations, 0.1, args.f_value == 1)
             if abs(e) < 0.2:
                 print("L{0}, R{1} - {2:.2f}".format(l, r, e))
