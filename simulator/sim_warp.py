@@ -50,8 +50,6 @@ def main():
     t_value = 90.0
     dl_value = 0.0
     dr_value = 0.0
-    wl_value = l_value + dl_value
-    wr_value = r_value + dr_value
 
     parser = argparse.ArgumentParser(description='Delta errors simulation')
     parser.add_argument('-l','--l-value',type=float,default=l_value,help='Correct l-value')
@@ -94,7 +92,6 @@ def main():
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
 
-    print(warp_csv)
     csv = StringIO(warp_csv)
     plot(csv, "{0}-{1}-with-{2}_{3}.png".format(correct_l, correct_r, wrong_l, wrong_r), True)
 
