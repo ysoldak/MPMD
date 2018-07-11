@@ -47,7 +47,7 @@ def main():
 
     l_value = 120.8
     r_value = 61.7
-    t_value = 90.0
+    # tl_value = 90.0
     dl_value = 0.0
     dr_value = 0.0
 
@@ -58,17 +58,27 @@ def main():
     parser.add_argument('-dr','--dr-value',type=float,default=dr_value,help='Deviation from correct r-value')
     parser.add_argument('-wl','--wl-value',type=float,default=None,help='Wrong l-value')
     parser.add_argument('-wr','--wr-value',type=float,default=None,help='Wrong r-value')
-    parser.add_argument('-t','--t-value',type=float,default=t_value,help='Tower tilt, t<90 means towers tilt outwards')
+    # parser.add_argument('-tl','--tl-value',type=float,default=tl_value,help='Tower lean, t<90 means towers tilt outwards')
+    parser.add_argument('-s','--s-value',type=float,default=0.01,help='Correct step size, in mm')
+    parser.add_argument('-ws','--ws-value',type=float,default=None,help='Wrong step size, in mm')
+    parser.add_argument('-a','--a-value',type=str,default="210,330,90",help='Correct tower angles, in deg')
+    parser.add_argument('-wa','--wa-value',type=str,default=None,help='Wrong tower angles, in deg')
+    parser.add_argument('-save','--save-value',type=str,default="sim_warp.png",help='Save plot to file with name')
     args = parser.parse_args()
 
     correct_l = args.l_value
     correct_r = args.r_value
-    correct_t = args.t_value
-    wrong_l = correct_l + float(args.dl_value) if args.wl_value is None else args.wl_value
-    wrong_r = correct_r + float(args.dr_value) if args.wr_value is None else args.wr_value
+    wrong_l = correct_l + args.dl_value if args.wl_value is None else args.wl_value
+    wrong_r = correct_r + args.dr_value if args.wr_value is None else args.wr_value
 
-    correct = DeltaPrinter(correct_l, correct_r, correct_t)
-    wrong  = DeltaPrinter(wrong_l, wrong_r, 90.0) # tilt on wrong printer is always 90, i.e. it thinks it's correct
+    if args.ws_value is None:
+        args.ws_value = args.s_value
+    if args.wa_value is None:
+        args.wa_value = args.a_value
+
+    correct = DeltaPrinter(correct_l, correct_r, 90.0, args.s_value, [float(a) for a in args.a_value.split(',')])
+    wrong  = DeltaPrinter(wrong_l, wrong_r, 90.0, args.ws_value, [float(a) for a in args.wa_value.split(',')])
+    # lean on wrong printer is always 90, i.e. it thinks it's correct. NB! lean does not work now anyway
 
     center_error = error(correct, wrong, 0, 0)[2] # glue good and bad centers together
 
@@ -92,8 +102,12 @@ def main():
     print("Dimensional accuracy:")
     print("{0:.3f}mm for 100.000mm".format(xy_error))
 
+    print("")
+
     csv = StringIO(warp_csv)
-    plot(csv, "{0}-{1}-with-{2}_{3}.png".format(correct_l, correct_r, wrong_l, wrong_r), True)
+    png = "{0}-{1}-with-{2}_{3}.png".format(correct_l, correct_r, wrong_l, wrong_r) if args.save_value == "generate" else args.save_value
+    print("Plot saved to file:\n" + png)
+    plot(csv, png, True)
 
 if __name__ == '__main__':
     main()
