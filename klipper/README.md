@@ -73,3 +73,5 @@ TODO
 ## Other
 
 - https://github.com/rcarlyle/StepperSim
+- https://github.com/manticorp/GCodeArcOptimiser
+- [G2&G3 on klipper](https://github.com/cruwaller/klipper/commit/fc3fffda5f108007bd75614e2b34fbeacc1af344)
