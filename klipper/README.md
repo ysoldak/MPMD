@@ -12,6 +12,10 @@ Software
 - [Klipper](https://github.com/KevinOConnor/klipper) host installed on the same RPi
 - [Klipper](https://www.patreon.com/koconnor/overview) client/firmware installed on Arduino
 
+Shop
+- I have this (EUR30): [Popprint Ramps 1.4 With Mega2560 R3 + LCD 12864 Smart Display Controller Module 5 x Driver DRV8825 Stepper Motor Driver Module](https://www.amazon.de/gp/product/B0749GV6L8/)
+- Alternative (EUR35), w/o drivers, but single board: [Popprint MKS Gen V1.4 Controller Board Integrated Ramps 1.4 + Mega 2560 Board](https://www.amazon.de/gp/product/B06Y671CKL/)
+
 ### Project
 The main driver for this project is to run some other firmware that stock on MPMD printer. The stock firmware is very limited in configuration and buggy. For example, the stock firmware does not allow confguration for individual diagonal rod lengths and tower angles. And this is pretty upsetting since the build can not be 100% flawless and all small deviations do add up to weird moves of the effector, resulting in squares printed are not exactly square and making a nice first layer an unreachable dream.
 
@@ -52,6 +56,7 @@ For MPMD with DRV8825 configured for 1/16 microstepping:
 ### Wiring
 TODO
 - http://www.instructables.com/id/Wiring-3D-Printer-RAMPS-14/
+- https://3dprinting.stackexchange.com/questions/5221/how-do-i-use-mega-pin-number-designations-rather-than-ramps-pin-numbers-in-marli
 
 ### Calibration
 TODO
