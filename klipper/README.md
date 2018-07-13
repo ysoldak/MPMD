@@ -70,3 +70,6 @@ TODO
 - Set new **arm_length** for all 3 steppers in *printer.cfg*
 - `RESTART`
 
+## Other
+
+- https://github.com/rcarlyle/StepperSim
