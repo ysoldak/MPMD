@@ -4,6 +4,14 @@ _Print, take out, flex to remove print, print again._
 
 ![FlexBed](FlexBed.jpg)
 
+## Inspiration and alternatives
+- [Prusa i3 MK3 Spring Steel Sheet](https://shop.prusa3d.com/en/mk3-printer-parts/216-spring-steel-sheet-smooth-pei.html) [[video]](https://www.youtube.com/watch?v=jpGKKgTwiTw)
+  - they only produce and ship plates for their MK3 machine, cutting flexible steel sheet to proper size can be tricky
+- [BuildTak FlexPlate System](https://www.buildtak.eu/product/buildtak-flexplate-system/) [[video]](https://www.youtube.com/watch?v=UaIIuiiKReo)
+  - no round design with small diameter and custom cutting flexible steel sheet can be tricky
+- [RepRap FlexiPlate](https://www.reprap.me/flexiplate.html)
+  - they do have plate cut specifically for MPMD (dia 110mm), you still need magnetic sheets to secure it on the bed
+
 ## Materials
 - **[PEI](https://www.banggood.com/1501500_3mm-Polyetherimide-PEI-Sheet-With-3M-Glue-For-3D-Printer-p-1341928.html) or [BuildTak](https://www.buildtak.com/product/buildtak-3d-printing-surface/)**, 0.3mm
 - **[Carbon fiber plate](https://www.banggood.com/3K-2003000_5mm-Plain-Weave-Carbon-Fiber-Plate-Panel-Sheet-p-1097507.html)**, 0.5mm
@@ -17,7 +25,7 @@ _Print, take out, flex to remove print, print again._
 
 ## Prepare
 
-Clean aluminium heated bed, peel stock adhesive surface and clean it throughly.
+Clean aluminum heated bed, peel stock adhesive surface and clean it throughly.
 Make sure the bed is secured with clips or screwed down, magnets are going to pull it up on flex surface removal.
 
 Cut a piece of cardboard in shape of the aluminum bed, leaving cut outs for bed clips if you use them. The helper cardboard piece must be just right, following the shape of the bed and not covering the clips.
