@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<fdmmaterial version="1.3" xmlns="http://www.ultimaker.com/material" xmlns:cura="http://www.ultimaker.com/cura">
+  <metadata>
+    <name>
+      <brand>Amazon</brand>
+      <material>PLA</material>
+      <color>Generic</color>
+      <label>Amazon PLA</label>
+    </name>
+    <description />
+    <definition>fdmprinter</definition>
+    <adhesion_info></adhesion_info>
+    <version>3</version>
+    <compatible>True</compatible>
+    <GUID>adcd412f-8d46-48d8-96ce-0610988e5814</GUID>
+    <color_code>#ffc924</color_code>
+  </metadata>
+  <properties>
+    <density>1.24</density>
+    <diameter>1.75</diameter>
+  </properties>
+  <settings>
+    <setting key="standby temperature">175</setting>
+    <setting key="heated bed temperature">65.0</setting>
+    <setting key="surface energy">100</setting>
+    <setting key="print temperature">215.0</setting>
+    <setting key="adhesion tendency">0</setting>
+    <setting key="retraction speed">45.0</setting>
+    <setting key="print cooling">100.0</setting>
+    <setting key="retraction amount">4.0</setting>
+  </settings>
+</fdmmaterial>
